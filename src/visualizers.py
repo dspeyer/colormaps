@@ -1,10 +1,15 @@
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 import cv2
 import numpy as np
 
 from globalvars import names, nnames, numbyname, blurSide
 from mappers import UnusedPxException
+
+class PotentialFootnote:
+    def __init__(self):
+        self.size = 0
+        self.places = []
 
 def inscribed(c,w,h):
     scratch = np.zeros((w,h),dtype=np.uint8)
@@ -39,7 +44,8 @@ class Visualizer:
         m = mapper.multiplier
         self.canvas = cv2.resize(canvas, dsize=None, fx=m, fy=m, interpolation=cv2.INTER_CUBIC)
         self.textnotes = []
-        self.footnotes = {}
+        self.footnotes = defaultdict(PotentialFootnote)
+        self.linenotes = {}
         
     def labelColors(self, data, maj, minfont):
         m = self.mapper.multiplier
@@ -141,9 +147,19 @@ class Visualizer:
 
                 
     def finalize(self):
+        w = self.mapper.w
+        h = self.mapper.h
         m = self.mapper.multiplier
         if not hasattr(self.mapper, 'eschew_footnotes'):
             self.canvas[-(256*m):,:(256*m),:] = 0
+            keep = list(sorted(self.footnotes.items(), key=lambda x:-x[1].size))
+            keep = keep[:24]
+            for fn, (txt, nt) in enumerate(keep):
+                fnx = (fn * 128 // m) % 256
+                fny = 64 * (1 + fn//(m*2))
+                self.delayedPutText(fnx+(w-256)+16, fny, 20, '%X=%s'%(fn,txt), 255)
+                for x,y,s in nt.places:
+                    self.delayedPutText(x, y, s, '%X'%fn)
         for x,y,s,txt,c in self.textnotes:
             if  txt: 
                 cv2.putText(self.canvas, txt, (y*m-3*s, x*m+s), cv2.FONT_HERSHEY_SIMPLEX, m*s/(10*len(txt)), (255-c,255-c,255-c), s//10+2, cv2.LINE_AA)
@@ -170,22 +186,14 @@ class Visualizer:
         self.textnotes.append((x,y,s,txt,tc))
 
     def delayedPutFootnote(self, x, y, s, txt):
-        h = self.mapper.h
-        w = self.mapper.w
-        m = self.mapper.multiplier
-        if txt not in self.footnotes:
-            fn = len(self.footnotes)+1
-            fnx = (fn * 128 // m) % 256
-            fny = 64 * (1 + fn//(m*2))
-            self.footnotes[txt] = fn
-            self.delayedPutText(fnx+(w-256)+16, fny, 20, '%X=%s'%(fn,txt), 255)
-        self.delayedPutText(x, y, s, '%X'%self.footnotes[txt])
+        self.footnotes[txt].places.append((x,y,s))
+        self.footnotes[txt].size += s ** 2
 
     def delayedPutLinenote(self, x, y, txt, lc):
         h = self.mapper.h
         w = self.mapper.w
         m = self.mapper.multiplier
-        if txt not in self.footnotes:
+        if txt not in self.linenotes:
             dot = self.mask * 0 +1
             dot[x,y]=0
             closeness = (h+w) - cv2.distanceTransform(dot, cv2.DIST_L2, 3, cv2.DIST_LABEL_CCOMP)
@@ -198,8 +206,8 @@ class Visualizer:
                 return
             self.delayedPutText(outx, outy, 10, txt, 255)
             cv2.circle(self.labelmask, (outy,outx), len(txt)*3, 0, -1)
-            self.footnotes[txt] = (outx, outy)
+            self.linenotes[txt] = (outx, outy)
         else:
-            (outx, outy) = self.footnotes[txt]
+            (outx, outy) = self.linenotes[txt]
         cv2.line(self.canvas, (y*m,x*m), (outy*m,outx*m), (255,255,255), 1)
 

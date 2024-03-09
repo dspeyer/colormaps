@@ -27,7 +27,7 @@ class Data:
         if localmax:
             ks = 201 # Chosen by messing around until it looked good
             for c in range(counts.shape[2]):
-                counts[:,:,c] -= 3*cv2.GaussianBlur(counts[:,:,c], (ks,ks), ks//2, ks//2)
+                counts[:,:,c] -= 1.5 * cv2.GaussianBlur(counts[:,:,c], (ks,ks), ks//2, ks//2)
 
         self.best = np.argmax(counts, axis=2)
         self.best = self.best[blurSide//2:-blurSide//2, blurSide//2:-blurSide//2]
@@ -46,7 +46,7 @@ def doTheThing(opts, p1=None, p2=None, maj=False, colorsToTopo=None, localmax=Fa
     if colorsToTopo:
         v.topoColors(data, colorsToTopo)
     else:
-        minfont=(localmax and 2 or 4) * (hasattr(opts,'eschew_visualizations') and 4 or 1)
+        minfont = (localmax and 2 or 4)  * (hasattr(opts,'eschew_visualizations') and 4 or 1)
         v.labelColors(data, maj, minfont)
     if p1 is not None:
         v.addGraph(data, p1, p2)
@@ -68,9 +68,6 @@ def doTheThing(opts, p1=None, p2=None, maj=False, colorsToTopo=None, localmax=Fa
     v.save(fn)
 
 if __name__ == '__main__':
-    for i in range(16, 100, 16):
-        doTheThing(Slice(i))
-    sys.exit()
     for mp in [ FullSat(), Pastel(), Slice(256,8), Slice(384,8), Slice(512,8) ]:
         doTheThing(mp)
         doTheThing(mp, localmax=True)
