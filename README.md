@@ -11,23 +11,27 @@ For each shade, the most common name for it.
 <a href=results/slice384_2048_plurality.png><img src=results/slice384_2048_plurality.png width=256 height=256 /></a>
 <a href=results/slice512_2048_plurality.png><img src=results/slice512_2048_plurality.png width=256 height=256 /></a>
 
-<a href=results/slicevid.mp4><video src=results/slicevid.mp4 width=256 height=256 /></a>
+[All the fixed-luminosity slices as a youtube video](https://www.youtube.com/watch?v=FuBFTUmHS5c)
 
 ### More like this, but wih weirder slices through the color-cube
 
+<a href=results/ParPlane0_128_plurality.png><img src=results/ParPlane0_128_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane0_192_plurality.png><img src=results/ParPlane0_192_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane0_64_plurality.png><img src=results/ParPlane0_64_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane1_128_plurality.png><img src=results/ParPlane1_128_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane1_192_plurality.png><img src=results/ParPlane1_192_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane1_64_plurality.png><img src=results/ParPlane1_64_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane2_128_plurality.png><img src=results/ParPlane2_128_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane2_192_plurality.png><img src=results/ParPlane2_192_plurality.png width=128 height=256 /></a>
+<a href=results/ParPlane2_64_plurality.png><img src=results/ParPlane2_64_plurality.png width=128 height=256 /></a>
+<a href=results/primary0_plurality.png><img src=results/primary0_plurality.png width=128 height=256 /></a>
+<a href=results/primary1_plurality.png><img src=results/primary1_plurality.png width=128 height=256 /></a>
+<a href=results/primary2_plurality.png><img src=results/primary2_plurality.png width=128 height=256 /></a>
+
+This one omits votes for "orange", "brown", "blue", "purple" and "pink" so the rare color names can be more visible:
+
 <a href=results/orange_plurality.png><img src=results/orange_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane0_128_plurality.png><img src=results/ParPlane0_128_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane0_192_plurality.png><img src=results/ParPlane0_192_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane0_64_plurality.png><img src=results/ParPlane0_64_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane1_128_plurality.png><img src=results/ParPlane1_128_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane1_192_plurality.png><img src=results/ParPlane1_192_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane1_64_plurality.png><img src=results/ParPlane1_64_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane2_128_plurality.png><img src=results/ParPlane2_128_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane2_192_plurality.png><img src=results/ParPlane2_192_plurality.png width=128 height=128 /></a>
-<a href=results/ParPlane2_64_plurality.png><img src=results/ParPlane2_64_plurality.png width=128 height=128 /></a>
-<a href=results/primary0_plurality.png><img src=results/primary0_plurality.png width=128 height=128 /></a>
-<a href=results/primary1_plurality.png><img src=results/primary1_plurality.png width=128 height=128 /></a>
-<a href=results/primary2_plurality.png><img src=results/primary2_plurality.png width=128 height=128 /></a>
+
 
 ## Localmax Color Names
 
